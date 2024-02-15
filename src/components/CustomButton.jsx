@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 28,
     paddingVertical: 15,
     borderRadius: 8,
-    flexDirection: 'row-reverse', // Placer l'icône à droite du texte
-    alignItems: 'center', // Centrer l'icône verticalement
+    flexDirection: 'row-reverse', 
+    alignItems: 'center', 
   },
   outline: {
     backgroundColor: 'transparent',

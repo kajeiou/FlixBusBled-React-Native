@@ -9,24 +9,24 @@ export default function TabHome() {
   return (
     <SafeAreaView style={styles.container}>
      <Tab.Navigator
-      screenOptions={{
-        activeTintColor: '#900C3F',
-        inactiveTintColor: '#999999',
-        style: {
+      tabBarOptions={{
+        tabBarStyle: {
           backgroundColor: '#FFFFFF',
-          borderBottomWidth: 1,
-          borderBottomColor: '#DDDDDD',
-          paddingTop:25
+          borderBottomWidth: 0,
+          borderBottomColor: '#F27438',
+          paddingTop: 25,
         },
+        activeTintColor: '#4B4B4B',
+        inactiveTintColor: '#4B4B4B',
         tabStyle: {
           height: 50,
         },
         labelStyle: {
-          fontSize: 16,
-          fontWeight: 'bold',
+          fontSize: 14,
+          
         },
         indicatorStyle: {
-          backgroundColor: '#900C3F',
+          backgroundColor: '#F27438',
         },
       }}
       tabBarPosition="top"
@@ -35,11 +35,10 @@ export default function TabHome() {
         name="Découvrir"
         component={DiscoverScreen}
         options={{
-          tabBarLabel: 'Découvrir',
-          
+          tabBarLabel: 'Découvrir'
         }}
       />
-     </Tab.Navigator>
+    </Tab.Navigator>
     </SafeAreaView>
     
   );

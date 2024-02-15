@@ -3,30 +3,32 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import { SafeAreaView, StyleSheet } from 'react-native';
 import ProfilScreen from '../userScreens/Profil/ProfilScreen';
+import TicketScreen from '../userScreens/Profil/TicketScreen';
+
 const Tab = createMaterialTopTabNavigator();
 
 export default function TabProfil() {
   return (
     <SafeAreaView style={styles.container}>
       <Tab.Navigator
-      screenOptions={{
-        activeTintColor: '#900C3F',
-        inactiveTintColor: '#999999',
-        style: {
+      tabBarOptions={{
+        tabBarStyle: {
           backgroundColor: '#FFFFFF',
-          borderBottomWidth: 1,
-          borderBottomColor: '#DDDDDD',
-          paddingTop:25
+          borderBottomWidth: 0,
+          borderBottomColor: '#F27438',
+          paddingTop: 25,
         },
+        activeTintColor: '#4B4B4B',
+        inactiveTintColor: '#4B4B4B',
         tabStyle: {
           height: 50,
         },
         labelStyle: {
-          fontSize: 16,
-          fontWeight: 'bold',
+          fontSize: 14,
+          
         },
         indicatorStyle: {
-          backgroundColor: '#900C3F',
+          backgroundColor: '#F27438',
         },
       }}
       tabBarPosition="top"
@@ -36,6 +38,13 @@ export default function TabProfil() {
         component={ProfilScreen}
         options={{
           tabBarLabel: 'Profil',
+        }}
+      />
+      <Tab.Screen
+        name="MyTickets"
+        component={TicketScreen}
+        options={{
+          tabBarLabel: 'Mes tickets',
         }}
       />
 

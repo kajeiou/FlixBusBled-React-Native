@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "120032611856",
+    "project_id": "jusqu-ici",
+    "storage_bucket": "jusqu-ici.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120032611856:android:cefeed71108b00ef580495",
+        "android_client_info": {
+          "package_name": "paci.main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120032611856-v6uapgfd6187pgkpbg5th0erb4otdsm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhE_IbujQmADJfM2u7hLqo7AB3EiOUYGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120032611856-v6uapgfd6187pgkpbg5th0erb4otdsm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

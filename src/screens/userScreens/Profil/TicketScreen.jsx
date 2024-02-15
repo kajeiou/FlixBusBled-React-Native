@@ -5,7 +5,7 @@ import Ride from '../../../components/Ride';
 import RideService from '../../../services/RideService';
 
 
-export default function DiscoverScreen() {
+export default function TicketScreen() {
     const [rides, setRides] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -35,10 +35,10 @@ export default function DiscoverScreen() {
     };
     
     return (
-    <CustomContainer refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#900C3F"/>}>
-      {rides.map((ride) => (
-          <Ride key={ride.id} ride={ride} />
-        ))}
-    </CustomContainer>
+        <CustomContainer refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor="#900C3F"/>}>
+        {rides.map((ride) => (
+            <Ride key={ride.id} ride={ride} />
+            ))}
+        </CustomContainer>
     );
 }
