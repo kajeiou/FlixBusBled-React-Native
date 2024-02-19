@@ -37,6 +37,6 @@ export class Ride {
     return utcToZonedTime(date, 'Europe/Paris');
   }
   getFormattedDate(date) {
-    return format(date, 'dd/MM/yyyy HH:mm');
+    return format(date, "dd/MM/yyyy 'à' HH'h'mm");
   }
 }

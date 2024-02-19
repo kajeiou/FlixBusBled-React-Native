@@ -23,7 +23,7 @@ export default function GuestNavigator() {
               name="Home"
               component={LaunchScreen}
               options={{
-                title: 'Welcome',
+                title: 'FlixBusBled',
               }}
             />
             <Stack.Screen

@@ -9,6 +9,9 @@ import DividerRow from '../../components/DividerRow';
 import CustomTextInput from '../../components/CustomTextInput';
 import CustomContainer from '../../components/CustomContainer';
 
+import Icon from 'react-native-vector-icons/Entypo';
+import IconMat from 'react-native-vector-icons/MaterialIcons';
+
 
 export default function LoginScreen() {
   
@@ -54,12 +57,17 @@ export default function LoginScreen() {
   return (
     <CustomContainer>
         <Title text="Connecte-toi !" />
+        <DividerRow />
+        <DividerRow />
+        <Icon name="email" size={24} color='#F27438'  />
         <CustomTextInput
           placeholder="Adresse e-mail"
           value={email}
           onChangeText={(textEntered) => onChangeHandler(textEntered, 'email')}
           keyboardType="email-address"
-        />   
+        />  
+
+        <IconMat name="password" size={24} color='#F27438'  /> 
        
         <CustomTextInput
           placeholder="Mot de passe"
@@ -74,7 +82,9 @@ export default function LoginScreen() {
           text="Me connecter maintenant"
           onPress={handleSignup}
           disabled={!isFormValid}
-        />
+        >
+          <IconMat name="lock-open" size={24} color='#ffffff'  />
+        </CustomButton>
       </CustomContainer>
   );
 }

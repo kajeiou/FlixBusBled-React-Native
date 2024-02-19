@@ -4,6 +4,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { SafeAreaView, StyleSheet } from 'react-native';
 import ProfilScreen from '../userScreens/Profil/ProfilScreen';
 import TicketScreen from '../userScreens/Profil/TicketScreen';
+import IconFa from 'react-native-vector-icons/FontAwesome5';
+import IconFe from 'react-native-vector-icons/Feather';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -16,12 +18,12 @@ export default function TabProfil() {
           backgroundColor: '#FFFFFF',
           borderBottomWidth: 0,
           borderBottomColor: '#F27438',
-          paddingTop: 25,
+          paddingTop: 30,
         },
         activeTintColor: '#4B4B4B',
         inactiveTintColor: '#4B4B4B',
         tabStyle: {
-          height: 50,
+          height: 60,
         },
         labelStyle: {
           fontSize: 14,
@@ -37,7 +39,10 @@ export default function TabProfil() {
         name="Profil"
         component={ProfilScreen}
         options={{
-          tabBarLabel: 'Profil',
+          tabBarLabel: 'Mon profil',
+          tabBarIcon: ({ color, size }) => (
+            <IconFa name="user-edit" color={color} size={16} />
+          ),
         }}
       />
       <Tab.Screen
@@ -45,6 +50,9 @@ export default function TabProfil() {
         component={TicketScreen}
         options={{
           tabBarLabel: 'Mes tickets',
+          tabBarIcon: ({ color, size }) => (
+            <IconFe name="bookmark" color={color} size={16} />
+          ),
         }}
       />
 

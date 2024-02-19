@@ -1,7 +1,9 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import DiscoverScreen from '../userScreens/Home/DiscoverScreen';
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
+
+import IconMatC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -14,12 +16,12 @@ export default function TabHome() {
           backgroundColor: '#FFFFFF',
           borderBottomWidth: 0,
           borderBottomColor: '#F27438',
-          paddingTop: 25,
+          paddingTop: 30,
         },
         activeTintColor: '#4B4B4B',
         inactiveTintColor: '#4B4B4B',
         tabStyle: {
-          height: 50,
+          height: 60,
         },
         labelStyle: {
           fontSize: 14,
@@ -35,7 +37,10 @@ export default function TabHome() {
         name="Découvrir"
         component={DiscoverScreen}
         options={{
-          tabBarLabel: 'Découvrir'
+          tabBarLabel: 'Découvrir',
+          tabBarIcon: ({ color, size }) => (
+            <IconMatC name="earth" color={color} size={16} />
+          ),
         }}
       />
     </Tab.Navigator>

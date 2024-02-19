@@ -10,6 +10,8 @@ import CustomButton from '../../../components/CustomButton';
 import { getUserFromAsyncStorage } from '../../../utils/AsyncStorageUtil';
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 
+import IconMi from 'react-native-vector-icons/MaterialIcons';
+
 export default function ProfilScreen() {
   const navigation = useNavigation();
   const [displayName, setDisplayName] = useState('');
@@ -162,7 +164,7 @@ export default function ProfilScreen() {
               disabled
             />
             <TouchableOpacity onPress={handleAttachImage}>
-              
+              <IconMi name="camera-alt" size={30} color="#000" style={styles.buttonIcon} />
             </TouchableOpacity>
 
             <CustomTextInput
@@ -179,7 +181,9 @@ export default function ProfilScreen() {
             />
           </View>
         </View>
-        <CustomButton text="Déconnexion" onPress={handleLogout} />
+        <CustomButton text="Déconnexion" onPress={handleLogout} >
+          <IconMi name="logout" size={18} color="white" />
+        </CustomButton>
       </View>
     </CustomContainer>  
   );

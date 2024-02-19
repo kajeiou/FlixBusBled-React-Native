@@ -2,11 +2,21 @@
 
 import React, { useRef, useState } from 'react';
 
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Animated, PanResponder  } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Animated, PanResponder, NativeModules  } from 'react-native';
 import RideGeo from './RideGeo';
-import CustomButton from './CustomButton';
 import { RectButton } from 'react-native-gesture-handler';
 
+import Icon from 'react-native-vector-icons/Fontisto';
+import IconIc from 'react-native-vector-icons/Ionicons';
+import IconMi from 'react-native-vector-icons/MaterialIcons';
+import IconAd from 'react-native-vector-icons/AntDesign';
+import IconMci from 'react-native-vector-icons/MaterialCommunityIcons'; 
+import DividerRow from './DividerRow';
+
+
+const {ToastModule} = NativeModules;
+
+const NotificationModule = NativeModules.NotificationModule;
 
 export default function Ride({ride} ) {
 
@@ -23,6 +33,9 @@ export default function Ride({ride} ) {
       if (gestureState.dx < -100) {
         
         console.log('Swiped left!');
+        //ToastModule.createToast('Swiped left!');
+        NotificationModule.createNotification("Réservation confirmée", `Vous venez de réserver votre trajet de ${ride.originLocation} à ${ride.arrivalLocation} !`);
+        
       }
       Animated.spring(buttonPositionX, {
         toValue: 0,
@@ -49,13 +62,21 @@ export default function Ride({ride} ) {
     <TouchableWithoutFeedback key={ride.id} onPress={() => handleDoubleTap(ride.id)}>
       <View style={styles.ride}>
         <View style={styles.rideHeader}>
-          <Text style={styles.rideUser}>{ride.originLocation} to {ride.arrivalLocation}</Text>
+          <Text style={styles.rideUser}>
+            {ride.originLocation} <Icon name="bus" size={24} color='#F27438' style={styles.icon} /> {ride.arrivalLocation}
+          </Text>
         </View>
         <Text style={styles.rideDetails}>
-          Départ : {ride.getFormattedDate(ride.originDate)},
-          Arrivée : {ride.getFormattedDate(ride.arrivalDate)}
+          <View style={styles.dateContainer}>
+            <IconMi name="departure-board" size={24} color='#F27438' style={styles.icon} />
+            <Text>{ride.getFormattedDate(ride.originDate)}</Text>
+          </View>
+          <View style={styles.dateContainer}>
+            <IconMci name="bus-marker" size={24} color='#F27438' style={styles.icon} />
+            <Text>{ride.getFormattedDate(ride.arrivalDate)}</Text>
+          </View>
         </Text>
-        <Text style={styles.rideDetails}>Price: {ride.price} €</Text>
+
         <RideGeo originGeo={ride.originGeo} arrivalGeo={ride.arrivalGeo} />
         
         <Animated.View
@@ -68,7 +89,14 @@ export default function Ride({ride} ) {
             style={[styles.button]}
             {...panResponder.panHandlers}
           >
-            <Text style={styles.textPrimary}>Réserver mon ticket</Text>
+            <Text style={styles.textPrimary}>
+              <IconAd name="arrowleft" size={16} color='white' style={styles.icon}  /> 
+                Réserver mon ticket <DividerRow/>
+                <Text style={styles.ridePrice}>
+                  <IconIc name="pricetag" size={16} color='white' style={styles.icon} /> {ride.price} €
+                </Text>
+              
+            </Text>
           </RectButton>
 
         </Animated.View>
@@ -103,8 +131,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 4,
+    textAlign:"center"
   },
   rideDetails: {
+    fontSize: 18,
+  },
+  dateContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+  },
+  ridePrice: {
     fontSize: 16,
   },
   button: {
@@ -120,5 +156,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     textAlign: 'right',
+  },
+  icon: {
+    marginRight: 12,
+    marginLeft: 12,
   },
 });

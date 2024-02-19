@@ -17,12 +17,13 @@ export default function CustomContainer({ children, refreshControl  }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom:100,
+
   },
   scrollContainer: {
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 500,
+
   },
 });

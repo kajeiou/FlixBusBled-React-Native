@@ -9,11 +9,12 @@ import {
   Text
 } from "react-native";
 
-export default function CustomCarousel({imageURIs}) {
+export default function CustomCarousel({imageNames}) {
   const [selectedIndex, setselectedIndex] = useState(0);
   const scrollView = useRef();
   const height=500;
   const width= Dimensions.get("window").width
+  console.log(imageNames)
 
 
   useEffect(() => {
@@ -32,30 +33,30 @@ export default function CustomCarousel({imageURIs}) {
     setselectedIndex(Math.floor(contentOffset.x / viewSize.width));
   };
 
-  if (imageURIs.length > 0) {
+  if (imageNames.length > 0) {
     return (
       <View>
-        <ScrollView
-          ref={scrollView}
-          horizontal
-          pagingEnabled
-          onMomentumScrollEnd={setIndex}
-          onContentSizeChange={() => scrollView.current.scrollToEnd()}
-        >
-          <View style={styles.carousalContainer}>
-            {imageURIs.map((imageURI, key) => (
-              <TouchableOpacity
-                key={key}
-                activeOpacity={0.8}
-                style={[styles.imageContainer, { height, width }]}
-              >
-                <Image source={{ uri: imageURI }} style={[styles.image, { height }]} />
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-        <Text style={styles.carouselText}>{imageURIs.length} médias</Text>
-      </View>
+      <ScrollView
+        ref={scrollView}
+        horizontal
+        pagingEnabled
+        onMomentumScrollEnd={setIndex}
+        onContentSizeChange={() => scrollView.current.scrollToEnd()}
+      >
+        <View style={styles.carouselContainer}>
+          {imageNames.map((imageName, key) => (
+            <TouchableOpacity
+              key={key}
+              activeOpacity={0.8}
+              style={[styles.imageContainer, { height, width }]}
+            >
+              <Image source={imageName} style={[styles.image, { height }]} />
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
+      <Text style={styles.carouselText}>{imageNames.length} médias</Text>
+    </View>
     );
   } else {
     return null;

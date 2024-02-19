@@ -9,6 +9,7 @@ import DividerRow from '../../components/DividerRow';
 import CustomTextInput from '../../components/CustomTextInput';
 import CustomContainer from '../../components/CustomContainer';
 
+
 export default function SignupScreen() {
   const [email, setEmail] = useState('');
   const [displayName, setdisplayName] = useState('');
@@ -73,6 +74,7 @@ export default function SignupScreen() {
           onChangeText={(textEntered) => onChangeHandler(textEntered, 'email')}
           keyboardType="email-address"
         />   
+        
         <CustomTextInput
           placeholder="Mot de passe"
           value={password}
