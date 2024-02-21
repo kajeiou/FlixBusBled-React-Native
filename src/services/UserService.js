@@ -16,6 +16,7 @@ import { setDoc, doc, getDoc, getFirestore } from 'firebase/firestore';
 import { User } from '../classes/User';
 import { setUserToAsyncStorage, getUserFromAsyncStorage } from "../utils/AsyncStorageUtil";
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import uploadBytesFromURI from '../utils/RNFetch';
 
 // Initialisation Firebase
 const app = initializeApp(firebaseConfig);
@@ -131,36 +132,60 @@ const AuthService = {
   },
 
   // Mise à jour de l'image de profil de l'utilisateur
-  updateImage: async (photoURL) => {
+  updateImage: async (photoURI) => {
     try {
       const user = await getUserFromAsyncStorage();
-
       const imageRef = ref(storage, `users/${user.uid}/${Date.now().toString()}`);
-      const response = await fetch(photoURL);
-      const blob = await response.blob();
-
-      // Télécharger l'image dans Firebase Storage
-      await uploadBytes(imageRef, blob);
-
+  
+      // Télécharger l'image à partir de l'URI et la téléverser sur Firebase Storage
+      try {
+        console.log('Téléchargement et téléversement de l\'image en cours...');
+        await uploadBytesFromURI(imageRef, photoURI);
+        console.log('Image téléversée avec succès sur Firebase Storage.');
+      } catch (uploadError) {
+        console.error('Erreur 1 lors du téléversement de l\'image sur Firebase Storage:', uploadError);
+        throw new Error('Erreur lors du téléversement de l\'image sur Firebase Storage: ' + uploadError.message);
+      }
+  
       // Récupérer le lien de téléchargement de l'image
-      const downloadURL = await getDownloadURL(imageRef);
+      let downloadURL;
+      try {
+        downloadURL = await getDownloadURL(imageRef);
+        console.log('Lien de téléchargement de l\'image récupéré avec succès:', downloadURL);
+      } catch (downloadError) {
+        console.error('Erreur 2 lors de la récupération du lien de téléchargement de l\'image:', downloadError);
+        throw new Error('Erreur lors de la récupération du lien de téléchargement de l\'image: ' + downloadError.message);
+      }
+  
+      // Mettre à jour le lien de l'image dans Firestore
       const userData = { photoURL: downloadURL };
       const userRef = doc(firestore, 'users', user.uid);
-
-      // Mettre à jour le lien de l'image dans Firestore
-      await setDoc(userRef, userData, { merge: true });
-
+      try {
+        await setDoc(userRef, userData, { merge: true });
+        console.log('Lien de l\'image mis à jour avec succès dans Firestore.');
+      } catch (firestoreError) {
+        console.error('Erreur 3 lors de la mise à jour du lien de l\'image dans Firestore:', firestoreError);
+        throw new Error('Erreur lors de la mise à jour du lien de l\'image dans Firestore: ' + firestoreError.message);
+      }
+  
+      // Mettre à jour les données de l'utilisateur dans AsyncStorage
       const storedUser = await getUserFromAsyncStorage();
       Object.assign(storedUser, { photoURL: userData.photoURL });
-
-      // Mettre à jour les données de l'utilisateur dans AsyncStorage
-      await setUserToAsyncStorage(storedUser);
-
+      try {
+        await setUserToAsyncStorage(storedUser);
+        console.log('Données de l\'utilisateur mises à jour avec succès dans AsyncStorage.');
+      } catch (asyncStorageError) {
+        console.error('Erreur 4 lors de la mise à jour des données de l\'utilisateur dans AsyncStorage:', asyncStorageError);
+        throw new Error('Erreur 4 lors de la mise à jour des données de l\'utilisateur dans AsyncStorage: ' + asyncStorageError.message);
+      }
+  
       return true;
     } catch (error) {
+      console.error('Erreur générale lors de la mise à jour de l\'image de profil:', error);
       return error;
     }
-  },
+  }
+,  
 
   // Mise à jour de l'adresse e-mail de l'utilisateur
   emailUpdate: async (email) => {
@@ -203,6 +228,7 @@ const AuthService = {
       throw e;
     }
   },
+  
 };
 
 export default AuthService;

@@ -8,9 +8,14 @@ import AuthService from '../../../services/UserService';
 import emptyPhoto from '../../../assets/images/empty_photo.png';
 import CustomButton from '../../../components/CustomButton';
 import { getUserFromAsyncStorage } from '../../../utils/AsyncStorageUtil';
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, Text, NativeModules } from 'react-native';
+import { Platform } from 'react-native';
+import RNFetchBlob from 'rn-fetch-blob';
+import RNFS from 'react-native-fs';
 
 import IconMi from 'react-native-vector-icons/MaterialIcons';
+
+const { ImagePickerModule, ToastModule } = NativeModules;
 
 export default function ProfilScreen() {
   const navigation = useNavigation();
@@ -85,7 +90,51 @@ export default function ProfilScreen() {
       console.log("Profil Screen" + error.message);
     }
   };
+
+  const convertImageToBinary = async (imageUri) => {
+    try {
+      if (imageUri.startsWith('content://')) {
+        const imagePath = RNFS.CachesDirectoryPath + '/tempImage.png';
+  
+        // Copier l'image depuis l'URI vers un emplacement temporaire
+        await RNFS.copyFile(imageUri, imagePath);
+  
+        // Lire les données binaires de l'image
+        const imageData = await RNFS.readFile(imagePath, 'base64');
+  
+        return imageData;
+      } else {
+        throw new Error('URI de l\'image invalide : l\'URI doit commencer par "content://"');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la conversion de l\'image en données binaires sur Android :', error);
+      throw error;
+    }
+  }
   const handleAttachImage = async () => {
+    try {
+      const imageUri = await new Promise((resolve, reject) => {
+        ImagePickerModule.pickImage(uri => resolve(uri));
+      });
+      ToastModule.createToast("Image sélectionnée :" + imageUri)
+
+      try {
+        //const imageData = await convertImageToBinary(imageUri);
+        //console.log(imageData)
+
+        await AuthService.updateImage(imageUri);
+        setIsFormModified(false);
+      } catch (error) {
+        console.log('[Profil Screen] Erreur lors de la mise à jour de l\'image sur Firebase:', error.message);
+        ToastModule.createToast('Erreur lors de la mise à jour de l\'image sur Firebase :' + error)
+      }
+    }
+    catch (error) {
+        console.error('Erreur lors de la sélection de l\'image :', error);
+        ToastModule.createToast('Erreur lors de la sélection de l\'image :' + error)
+    }
+
+    
     /*
     try {
       const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -121,7 +170,7 @@ export default function ProfilScreen() {
       console.log('[Profil Screen] Erreur lors de l\'attachement de l\'image:', error.message);
       alert('Erreur lors de l\'attachement de l\'image');
     }*/
-    console.log("image")
+
   };
 
   return (

@@ -8,6 +8,7 @@ import {
   Dimensions,
   Text
 } from "react-native";
+import RNFetch from '../utils/RNFetch';
 
 export default function CustomCarousel({imageURIs}) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -46,13 +47,19 @@ export default function CustomCarousel({imageURIs}) {
               key={key}
               activeOpacity={0.8}
               style={{ width: screenWidth, height: screenWidth }}
+              onPress={() => console.log('Image index:', key)}
             >
-              <Image source={{ uri: imageName }} style={{ width: "100%", height: "100%" }} />
+              <Image
+                source={{ uri: imageName }}
+                style={{ width: "100%", height: "100%" }}
+                onLoad={() => RNFetch.downloadAndSaveImage(imageName, `image_${key}.jpg`)}
+              />
             </TouchableOpacity>
           ))}
         </ScrollView>
         <Text style={styles.carouselText}>{imageURIs.length} média(s)</Text>
       </View>
+
     );
   } else {
     return null;

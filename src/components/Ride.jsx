@@ -1,10 +1,10 @@
 
 
 import React, { useRef, useState } from 'react';
-
 import { View, Text, StyleSheet, TouchableWithoutFeedback, Animated, PanResponder, NativeModules  } from 'react-native';
 import RideGeo from './RideGeo';
 import { RectButton } from 'react-native-gesture-handler';
+import { ListItem } from '@rneui/themed';
 
 import Icon from 'react-native-vector-icons/Fontisto';
 import IconIc from 'react-native-vector-icons/Ionicons';
@@ -14,15 +14,14 @@ import IconMci from 'react-native-vector-icons/MaterialCommunityIcons';
 import DividerRow from './DividerRow';
 import CustomCarousel from './CustomCarousel';
 
-
-const {ToastModule} = NativeModules;
-
-const NotificationModule = NativeModules.NotificationModule;
+const { ToastModule, NotificationModule } = NativeModules;
 
 export default function Ride({ride} ) {
 
   const lastTapRef = useRef(null);
   const [buttonPositionX, setButtonPositionX] = useState(new Animated.Value(0));
+  const [expandedMedia, setExpandedMedia] = useState(false);
+  const [expandedGeo, setExpandedGeo] = useState(false);
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -32,9 +31,7 @@ export default function Ride({ride} ) {
     ),
     onPanResponderRelease: (e, gestureState) => {
       if (gestureState.dx < -100) {
-        
-        console.log('Swiped left!');
-        //ToastModule.createToast('Swiped left!');
+        ToastModule.createToast("Réservation pris en compte avec succès.");
         NotificationModule.createNotification("Réservation confirmée", `Vous venez de réserver votre trajet de ${ride.originLocation} à ${ride.arrivalLocation} !`);
         
       }
@@ -45,7 +42,6 @@ export default function Ride({ride} ) {
     }
   });
   
-
 
   const handleDoubleTap = (rideId) => {
     const doubleTapDelay = 300; // 300 milliseconds
@@ -77,17 +73,50 @@ export default function Ride({ride} ) {
             <Text>{ride.getFormattedDate(ride.arrivalDate)}</Text>
           </View>
         </Text>
+        
 
-        <RideGeo originGeo={ride.originGeo} arrivalGeo={ride.arrivalGeo} />
-
-        {ride.imageURIs.length > 0 && (
-          <View style={styles.container}>
+        <ListItem.Accordion
+          content={
+            <>
+              <IconMi name="place" size={30} />
+              <ListItem.Content>
+                <ListItem.Title>Voir le trajet</ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandedGeo}
+          onPress={() => {
+            setExpandedGeo(!expandedGeo);
+          }}
+        >
+          <View style={styles.contentGeo}>
+            <RideGeo originGeo={ride.originGeo} arrivalGeo={ride.arrivalGeo} />
+          </View>
+          
+        </ListItem.Accordion>
+        
+        <ListItem.Accordion
+          content={
+            <>
+              <IconMi name="photo" size={30} />
+              <ListItem.Content>
+                <ListItem.Title>Voir les photographies</ListItem.Title>
+              </ListItem.Content>
+            </>
+          }
+          isExpanded={expandedMedia}
+          onPress={() => {
+            setExpandedMedia(!expandedMedia);
+          }}
+        >
+          {ride.imageURIs.length > 0 && (
+          
             <View style={styles.carousel}>
               <CustomCarousel imageURIs={ride.imageURIs} />
             </View>
-          </View>
-        )}
-
+          
+          )}
+        </ListItem.Accordion>
         
         <Animated.View
           style={{
@@ -133,6 +162,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    maxHeight: 800
   },
   rideHeader: {
     marginBottom: 8,
@@ -182,5 +212,9 @@ const styles = StyleSheet.create({
   carousel: {
     width: '100%', 
     overflow: 'hidden', 
+
   },
+  contentGeo: {
+    maxHeight:400
+  }
 });

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
 
@@ -18,7 +18,7 @@
       android:theme="@style/AppTheme">
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyAz2goHIOGij1pt2zSQufKc3rQssBRMwIw" />
+        android:value="AIzaSyDQyKfla4S_Jw8sPzY9Dfjagw_nLz5W8Ls" />
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

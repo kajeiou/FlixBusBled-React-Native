@@ -14,6 +14,7 @@ import com.facebook.soloader.SoLoader
 import com.flixbusbled.CalendarPackage
 import com.flixbusbled.ToastPackage
 import com.flixbusbled.NotificationPackage
+import com.flixbusbled.ImagePickerPackage
 
 class MainApplication : Application(), ReactApplication {
 
@@ -26,6 +27,7 @@ class MainApplication : Application(), ReactApplication {
               add(CalendarPackage())
               add(ToastPackage())
               add(NotificationPackage())
+              add(ImagePickerPackage())
             }
 
         override fun getJSMainModuleName(): String = "index"
