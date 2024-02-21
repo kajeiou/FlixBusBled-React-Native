@@ -1,4 +1,4 @@
-import { utcToZonedTime,format } from 'date-fns-tz';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 export class Ride {
   constructor(
@@ -6,7 +6,7 @@ export class Ride {
     arrivalDate,
     arrivalGeo,
     arrivalLocation,
-    imageUrl,
+    imageURIs,
     notes,
     originDate,
     originGeo,
@@ -21,7 +21,7 @@ export class Ride {
       longitude: arrivalGeo.longitude
     }; 
     this.arrivalLocation = arrivalLocation; 
-    this.imageUrl = imageUrl || ""; 
+    this.imageURIs = imageURIs || []; 
     this.notes = notes || ""; 
     this.originDate = this.convertToParisTimezone(originDate.toDate());
     this.originGeo = { 

@@ -1,6 +1,6 @@
 
-import { getFirestore, collection, addDoc, getDocs, getDoc } from 'firebase/firestore';
-import { getStorage  } from 'firebase/storage';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 import { Ride } from '../classes/Ride';
 
 
@@ -18,13 +18,12 @@ const RideService = {
           const rides = [];
           querySnapshot.forEach((doc) => {
             const data = doc.data();
-            console.log(data)
             const ride = new Ride(
               doc.id,
               data.arrival_date,
               data.arrival_geo,
               data.arrival_location,
-              data.image_url,
+              data.imageURIs,
               data.notes,
               data.origin_date,
               data.origin_geo,

@@ -1,6 +1,8 @@
 import React from 'react';
-import { View,Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Feather, MaterialIcons } from 'react-native-vector-icons'
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
+import IconF from 'react-native-vector-icons/Feather';
+import IconMi from 'react-native-vector-icons/MaterialIcons';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,12 +11,12 @@ export default function MenuScreen() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.menuItem, styles.menuItemLarge]} onPress={() => navigation.navigate('TabHome')}>
-        <Text>Home</Text>
+      <TouchableOpacity style={[styles.menuItem, styles.menuItemSmall]} onPress={() => navigation.navigate('TabHome')}>
+        <IconMi name='home' style={styles.menuIcon} />
       </TouchableOpacity>
       
       <TouchableOpacity style={[styles.menuItem, styles.menuItemSmall]} onPress={() => navigation.navigate('TabProfil')}>
-        <Text>Profil</Text>
+        <IconF name='user' style={styles.menuIcon} />
       </TouchableOpacity>
     </View>
   );
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     menuIcon : {
-      color:'#900C3F',
+      color:'#F27438',
       fontSize:30
     }
 });
