@@ -17,7 +17,7 @@ export default function CustomContainer({ children, refreshControl  }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
+    paddingBottom:62,
   },
   scrollContainer: {
     flexGrow: 1,

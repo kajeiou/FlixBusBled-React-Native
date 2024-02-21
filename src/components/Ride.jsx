@@ -12,6 +12,7 @@ import IconMi from 'react-native-vector-icons/MaterialIcons';
 import IconAd from 'react-native-vector-icons/AntDesign';
 import IconMci from 'react-native-vector-icons/MaterialCommunityIcons'; 
 import DividerRow from './DividerRow';
+import CustomCarousel from './CustomCarousel';
 
 
 const {ToastModule} = NativeModules;
@@ -78,6 +79,15 @@ export default function Ride({ride} ) {
         </Text>
 
         <RideGeo originGeo={ride.originGeo} arrivalGeo={ride.arrivalGeo} />
+
+        {ride.imageURIs.length > 0 && (
+          <View style={styles.container}>
+            <View style={styles.carousel}>
+              <CustomCarousel imageURIs={ride.imageURIs} />
+            </View>
+          </View>
+        )}
+
         
         <Animated.View
           style={{
@@ -160,5 +170,17 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 12,
     marginLeft: 12,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10, 
+    paddingVertical: 10,
+  },
+  
+  carousel: {
+    width: '100%', 
+    overflow: 'hidden', 
   },
 });

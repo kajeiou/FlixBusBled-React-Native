@@ -9,19 +9,16 @@ import {
   Text
 } from "react-native";
 
-export default function CustomCarousel({imageNames}) {
-  const [selectedIndex, setselectedIndex] = useState(0);
+export default function CustomCarousel({imageURIs}) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const scrollView = useRef();
-  const height=500;
-  const width= Dimensions.get("window").width
-  console.log(imageNames)
-
+  const screenWidth = Dimensions.get("window").width;
 
   useEffect(() => {
     if (scrollView.current) {
       scrollView.current.scrollTo({
         animated: true,
-        x: width * selectedIndex,
+        x: screenWidth * selectedIndex,
         y: 0,
       });
     }
@@ -30,33 +27,32 @@ export default function CustomCarousel({imageNames}) {
   const setIndex = (event) => {
     const contentOffset = event.nativeEvent.contentOffset;
     const viewSize = event.nativeEvent.layoutMeasurement;
-    setselectedIndex(Math.floor(contentOffset.x / viewSize.width));
+    setSelectedIndex(Math.floor(contentOffset.x / viewSize.width));
   };
 
-  if (imageNames.length > 0) {
+  if (imageURIs.length > 0) {
     return (
       <View>
-      <ScrollView
-        ref={scrollView}
-        horizontal
-        pagingEnabled
-        onMomentumScrollEnd={setIndex}
-        onContentSizeChange={() => scrollView.current.scrollToEnd()}
-      >
-        <View style={styles.carouselContainer}>
-          {imageNames.map((imageName, key) => (
+        <ScrollView
+          ref={scrollView}
+          horizontal
+          pagingEnabled
+          onMomentumScrollEnd={setIndex}
+          onContentSizeChange={() => scrollView.current.scrollToEnd()}
+          style={{ width: screenWidth, height: screenWidth }}
+        >
+          {imageURIs.map((imageName, key) => (
             <TouchableOpacity
               key={key}
               activeOpacity={0.8}
-              style={[styles.imageContainer, { height, width }]}
+              style={{ width: screenWidth, height: screenWidth }}
             >
-              <Image source={imageName} style={[styles.image, { height }]} />
+              <Image source={{ uri: imageName }} style={{ width: "100%", height: "100%" }} />
             </TouchableOpacity>
           ))}
-        </View>
-      </ScrollView>
-      <Text style={styles.carouselText}>{imageNames.length} médias</Text>
-    </View>
+        </ScrollView>
+        <Text style={styles.carouselText}>{imageURIs.length} média(s)</Text>
+      </View>
     );
   } else {
     return null;
@@ -64,22 +60,10 @@ export default function CustomCarousel({imageNames}) {
 }
 
 const styles = StyleSheet.create({
-  carousalContainer: {
-    flexDirection: "row",
-    width: "100%",
-
-  },
-  imageContainer: { backgroundColor: "white" },
-
-  image: {
-    width: "100%",
-    height: "100%",
-  },
   carouselText: {
     fontSize: 10,
     color: '#999999',
-    padding:4,
-    textAlign:'center'
-
+    padding: 4,
+    textAlign: 'center'
   }
 });
