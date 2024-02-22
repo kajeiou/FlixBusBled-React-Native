@@ -17,7 +17,6 @@ export default function TicketScreen() {
       try {
         const response = await RideService.getRides();
         setRides(response);
-        console.log(response)
       } catch (error) {
         console.error('Error fetching rides:', error);
       }

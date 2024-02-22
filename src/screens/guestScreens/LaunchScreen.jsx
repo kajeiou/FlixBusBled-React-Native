@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import {StyleSheet, Text, View, Image, Animated, NativeModules  } from 'react-native';
+import {StyleSheet, Text, View, Image, Animated } from 'react-native';
 
 import CustomButton from '../../components/CustomButton';
 import DividerButton from '../../components/DividerButton';
@@ -9,14 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
 import IconMatC from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const {CalendarModule} = NativeModules;
 
 export default function LaunchScreen() {
   const navigation = useNavigation();
   const button2Scale = useRef(new Animated.Value(1)).current;
-
-  //const IconModule = NativeModules.IconModule;
-  //console.log(IconModule);
   
   return (
     <CustomContainer>
@@ -51,7 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     paddingHorizontal: 40,
-    marginBottom: 30,
+    marginBottom: 10,
     color: "#808080",
     lineHeight: 24,
   },
