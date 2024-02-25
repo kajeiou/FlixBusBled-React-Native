@@ -1,49 +1,75 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
 
-# primary color #F27438
+# FLEXIBLED ON THE TOP
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Prérequis
 
-## Step 1: Start the Metro Server
+Avant de commencer, assurez-vous d'avoir Node.js et npm installés sur votre machine. Vous pouvez les télécharger et les installer depuis [le site officiel de Node.js](https://nodejs.org/).
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Instructions pour le Premier Lancement
 
-To start Metro, run the following command from the _root_ of your React Native project:
+### 1. **Cloner le Projet**
 
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Clonez le projet depuis le dépôt Git en utilisant la commande suivante :
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+git clone https://github.com/kajeiou/FlixBusBled-React-Native.git
 ```
 
-### For iOS
+### 2. **Accéder au Répertoire du Projet**
+
+Allez dans le répertoire du projet :
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+cd FlixBusBled-React-Native
 ```
 
+### 3. **Installation des Dépendances**
 
+Installez les dépendances du projet en utilisant la commande suivante :
+
+```bash
+npm install
+```
+
+### 4. **Configuration des Variables d'Environnement**
+
+Si le projet nécessite des variables d'environnement, copiez le fichier `.env.example` vers un nouveau fichier `.env` et configurez les valeurs selon vos besoins.
+
+### 5. **Lancement de l'Application sur un Émulateur ou un Périphérique Physique**
+
+Pour lancer l'application sur un émulateur Android ou iOS, utilisez les commandes suivantes :
+
+Pour Android :
+
+```bash
+npx react-native run-android
+```
+
+Pour iOS :
+
+```bash
+npx react-native run-ios
+```
+
+### 6. **Exploration du Code et Modification**
+
+Ouvrez le projet dans votre éditeur de texte préféré et explorez le code dans le répertoire `src`. Modifiez les fichiers selon vos besoins.
+
+### 7. **Lancement de l'Application sur un Périphérique Physique**
+
+Si vous avez un périphérique physique connecté, vous pouvez également lancer l'application dessus. Assurez-vous que le débogage USB est activé sur votre périphérique Android.
+
+```bash
+npx react-native run-android
+```
+
+### 8. **Développement Continu**
+
+Continuez à développer votre application en faisant des modifications dans le code source. L'application se rechargera automatiquement avec les nouvelles modifications.
+
+## Astuces Supplémentaires
+
+- Consultez la [documentation officielle de React Native](https://reactnative.dev/docs/getting-started) pour des informations détaillées et des astuces.
 
 
